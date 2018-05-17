@@ -21,8 +21,10 @@ pipeline {
     }
     stage('Push Registry') {
       steps {
-        sh 'docker tag app:test jloste/app:stable'
-        sh 'docker push jloste/app:stable'
+        withCredentials([usernamePassword(credentialsId: '7f06fc9a-dd82-4154-88a4-11992285ebfd', passwordVariable: 'password', usernameVariable: 'user')]) {
+          sh 'docker tag app:test jloste/app:stable'
+          sh 'docker push jloste/app:stable'
+        }
       }
     }
   }
